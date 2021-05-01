@@ -1,0 +1,14 @@
+C:\Users\xulinxi\source\repos\Solution1_04262021\ApplicationCore\bin\Debug\net5.0\ApplicationCore.deps.json
+C:\Users\xulinxi\source\repos\Solution1_04262021\ApplicationCore\bin\Debug\net5.0\ApplicationCore.dll
+C:\Users\xulinxi\source\repos\Solution1_04262021\ApplicationCore\bin\Debug\net5.0\ref\ApplicationCore.dll
+C:\Users\xulinxi\source\repos\Solution1_04262021\ApplicationCore\bin\Debug\net5.0\ApplicationCore.pdb
+C:\Users\xulinxi\source\repos\Solution1_04262021\ApplicationCore\obj\Debug\net5.0\ApplicationCore.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\xulinxi\source\repos\Solution1_04262021\ApplicationCore\obj\Debug\net5.0\ApplicationCore.AssemblyInfoInputs.cache
+C:\Users\xulinxi\source\repos\Solution1_04262021\ApplicationCore\obj\Debug\net5.0\ApplicationCore.AssemblyInfo.cs
+C:\Users\xulinxi\source\repos\Solution1_04262021\ApplicationCore\obj\Debug\net5.0\ApplicationCore.csproj.CoreCompileInputs.cache
+C:\Users\xulinxi\source\repos\Solution1_04262021\ApplicationCore\obj\Debug\net5.0\ApplicationCore.dll
+C:\Users\xulinxi\source\repos\Solution1_04262021\ApplicationCore\obj\Debug\net5.0\ref\ApplicationCore.dll
+C:\Users\xulinxi\source\repos\Solution1_04262021\ApplicationCore\obj\Debug\net5.0\ApplicationCore.pdb
+C:\Users\xulinxi\source\repos\Solution1_04262021\ApplicationCore\bin\Debug\net5.0\ApplicationCore.runtimeconfig.json
+C:\Users\xulinxi\source\repos\Solution1_04262021\ApplicationCore\bin\Debug\net5.0\ApplicationCore.runtimeconfig.dev.json
+C:\Users\xulinxi\source\repos\Solution1_04262021\ApplicationCore\obj\Debug\net5.0\ApplicationCore.genruntimeconfig.cache
