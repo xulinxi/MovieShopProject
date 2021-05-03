@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Entities
 {
-    class Favorite
+    public class Favorite
     {
         public int Id { get; set; }
         public int MovieId { get; set; }

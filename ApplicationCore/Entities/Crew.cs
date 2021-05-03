@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Entities
 {
-    class Crew
+    pubclic class Crew
     {
         public int Id { get; set; }
         public string Name { get; set; }

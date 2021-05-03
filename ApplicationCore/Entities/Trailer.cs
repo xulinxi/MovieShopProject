@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Entities
 {
-    class Trailer
+    public class Trailer
     {
         public int Id { get; set; }
         public int MovieID { get; set; }

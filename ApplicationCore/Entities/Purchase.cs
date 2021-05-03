@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Entities
 {
-    class Purchase
+    public class Purchase
     {
         public int Id { get; set; }
         public int UserId { get; set; }
