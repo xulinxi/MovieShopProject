@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using ApplicationCore.Models.Response;
+using ApplicationCore.ServiceInterfaces;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MovieShop.MVC.Models;
@@ -21,11 +23,9 @@ namespace MovieShop.MVC.Controllers
 
         //private MovieService movieService;
         // "readonly" limits the _movieService only be used in a private constructor (NOT a public method)
-        private readonly IMovieService _movieService
-        {
-            _movieService = _movieService;
-        }
-        public HomeController(IMovieServce movieServce)
+        private readonly IMovieService _movieService;
+       
+        public HomeController(IMovieService movieService)
         {
             //_movieService = new MovieService();
             //_movieService = new movieService();
@@ -51,7 +51,6 @@ namespace MovieShop.MVC.Controllers
             
 
         }
-
 
 
 
