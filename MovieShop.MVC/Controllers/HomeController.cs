@@ -12,50 +12,49 @@ namespace MovieShop.MVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        //private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        //public HomeController(ILogger<HomeController> logger)
+        //{
+        //    //_logger = logger;
+        //}
+
+        //private MovieService movieService;
+        // "readonly" limits the _movieService only be used in a private constructor (NOT a public method)
+        private readonly IMovieService _movieService
         {
-            _logger = logger;
+            _movieService = _movieService;
         }
+        public HomeController(IMovieServce movieServce)
+        {
+            //_movieService = new MovieService();
+            //_movieService = new movieService();
+
+            _movieService = movieService;
+
+            //_movieService = new MovieService();
 
 
+        }
         public IActionResult Index()
         {
             // call the database and get top 30 revenue movies
             // passing data from my controller/action method to view
             // ViewBag and ViewData - hard to get feedback for developers
 
-            var movies = new List<MovieResponseModel>
-            {
-                new() {Id = 1, Title = "Avengers: Infinity War", Budget = 1200000},
-                new() {Id = 2, Title = "Avatar", Budget = 1200000},
-                new() {Id = 3, Title = "Star Wars: The Force Awakens", Budget = 1200000},
-                new() {Id = 4, Title = "Titanic", Budget = 1200000},
-                new() {Id = 5, Title = "Inception", Budget = 1200000},
-                new() {Id = 6, Title = "Avengers: Age of Ultron", Budget = 1200000},
-                new() {Id = 7, Title = "Interstellar", Budget = 1200000},
-                new() {Id = 8, Title = "Fight Club", Budget = 1200000},
-                new()
-                {
-                    Id = 9, Title = "The Lord of the Rings: The Fellowship of the Ring", Budget = 1200000
-                },
-                new() {Id = 10, Title = "The Dark Knight", Budget = 1200000},
-                new() {Id = 11, Title = "The Hunger Games", Budget = 1200000},
-                new() {Id = 12, Title = "Django Unchained", Budget = 1200000},
-                new()
-                {
-                    Id = 13, Title = "The Lord of the Rings: The Return of the King", Budget = 1200000
-                },
-                new() {Id = 14, Title = "Harry Potter and the Philosopher's Stone", Budget = 1200000},
-                new() {Id = 15, Title = "Iron Man", Budget = 1200000},
-                new() {Id = 16, Title = "Furious 7", Budget = 1200000}
-            };
+            //ViewBag.TotalMovies = movies.Count();
+            //ViewData["PageTitle"] = "Top Movies Page";
+            //return View(movies);
 
-            ViewBag.TotalMovies = movies.Count();
-            ViewData["PageTitle"] = "Top Movies Page";
+            var movies = _movieService.GetTop30RevenueMovie();
             return View(movies);
+            
+
         }
+
+
+
+
 
         //Always make it a habbit of putting a request type
         [HttpGet]
