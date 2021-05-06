@@ -8,5 +8,6 @@ namespace ApplicationCore.Models.Response
 {
     interface UserRegisterResponseModel
     {
+
     }
 }

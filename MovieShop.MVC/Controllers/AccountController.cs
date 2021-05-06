@@ -16,13 +16,11 @@ namespace MovieShop.MVC.Controllers
     public class AccountController : Controller
     {
         private readonly IConfiguration _config;
-        private readonly ICurrentUserService _currentUserService;
         private readonly IUserService _userService;
 
-        public AccountController(ICurrentUserService currentUserService, IUserService userService,
+        public AccountController( IUserService userService,
             IConfiguration config)
         {
-            _currentUserService = currentUserService;
             _userService = userService;
             _config = config;
         }
@@ -38,20 +36,6 @@ namespace MovieShop.MVC.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Upload(IFormFile profileImage)
-        {
-            var userProfile = new UserProfileRequestModel()
-            {
-                Id = _currentUserService.UserId.Value,
-                FullName = _currentUserService.FullName,
-                File = profileImage
-            };
-
-            var response = _userService.UploadUserProfilePicture(userProfile);
-
-            return View();
-        }
 
         [HttpPost]
         public async Task<IActionResult> Register(UserRegisterRequestModel registerModel)

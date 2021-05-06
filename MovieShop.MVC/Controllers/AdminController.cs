@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ApplicationCore.Models;
 using ApplicationCore.Models.Request;
 using Microsoft.AspNetCore.Mvc;
 

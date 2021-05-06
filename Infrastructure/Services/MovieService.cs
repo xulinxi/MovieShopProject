@@ -3,45 +3,68 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ApplicationCore.Helpers;
+using ApplicationCore.Models;
 using ApplicationCore.Models.Response;
 using ApplicationCore.ServiceInterfaces;
 
 namespace Infrastructure.Services
 {
-    public class MovieService: IMovieService
+    public class MovieService : IMovieService
     {
-        //public List<MovieResponseModel> GetTop30RevenueMovie()
-        //{
-            //    throw new NotImplementedException();
-            //}
-        public List<MovieResponseModel> GetTop30RevenueMovie()
+        public Task<MovieDetailsResponseModel> CreateMovie(MovieCreateRequest movieCreateRequest)
         {
-            var movies = new List<MovieResponseModel>
-            {
-                new() {Id = 1, Title = "Avengers: Infinity War", Budget = 1200000},
-                new() {Id = 2, Title = "Avatar", Budget = 1200000},
-                new() {Id = 3, Title = "Star Wars: The Force Awakens", Budget = 1200000},
-                new() {Id = 4, Title = "Titanic", Budget = 1200000},
-                new() {Id = 5, Title = "Inception", Budget = 1200000},
-                new() {Id = 6, Title = "Avengers: Age of Ultron", Budget = 1200000},
-                new() {Id = 7, Title = "Interstellar", Budget = 1200000},
-                new() {Id = 8, Title = "Fight Club", Budget = 1200000},
-                new()
-                {
-                    Id = 9, Title = "The Lord of the Rings: The Fellowship of the Ring", Budget = 1200000
-                },
-                new() {Id = 10, Title = "The Dark Knight", Budget = 1200000},
-                new() {Id = 11, Title = "The Hunger Games", Budget = 1200000},
-                new() {Id = 12, Title = "Django Unchained", Budget = 1200000},
-                new()
-                {
-                    Id = 13, Title = "The Lord of the Rings: The Return of the King", Budget = 1200000
-                },
-                new() {Id = 14, Title = "Harry Potter and the Philosopher's Stone", Budget = 1200000},
-                new() {Id = 15, Title = "Iron Man", Budget = 1200000},
-                new() {Id = 16, Title = "Furious 7", Budget = 1200000}
-            };
-            return movies;
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedResultSet<MovieResponseModel>> GetAllMoviePurchasesByPagination(int pageSize = 20, int page = 1)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedResultSet<MovieResponseModel>> GetAllPurchasesByMovieId(int movieId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<MovieResponseModel>> GetHighestGrossingMovies()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<MovieDetailsResponseModel> GetMovieAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PaginatedList<MovieResponseModel>> GetMoviesByGenre(int genreId, int pageSize = 25, int page = 1)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedResultSet<MovieResponseModel>> GetMoviesByPagination(int pageSize = 20, int page = 1, string title = "")
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> GetMoviesCount(string title = "")
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<ReviewMovieResponseModel>> GetReviewsForMovie(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<MovieResponseModel>> GetTopRatedMovies()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<MovieDetailsResponseModel> UpdateMovie(MovieCreateRequest movieCreateRequest)
+        {
+            throw new NotImplementedException();
         }
     }
 }

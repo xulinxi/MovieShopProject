@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Data
 {
-   public class MovieShopDbContext:DbContext
+    public class MovieShopDbContext : DbContext
     {
         public MovieShopDbContext(DbContextOptions<MovieShopDbContext> options) : base(options)
         {
@@ -24,7 +24,7 @@ namespace Infrastructure.Data
         //public DbSet<MovieCrew> MovieCrews { get; set; }
         public DbSet<Movie> Movies { get; set; }
         //public DbSet<Review> Reviews { get; set; }
-        //public DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
         //public DbSet<Favorite> Favorites { get; set; }
         //public DbSet<Role> Roles { get; set; }
         //public DbSet<UserRole> UserRoles { get; set; }
@@ -35,14 +35,29 @@ namespace Infrastructure.Data
         {
             modelBuilder.Entity<Movie>(ConfigureMovie);
             modelBuilder.Entity<Trailer>(ConfigureTrailer);
+            modelBuilder.Entity<User>(ConfigureUser);
 
             modelBuilder.Entity<Movie>().HasMany(m => m.Genres).WithMany(g => g.Movies)
                 .UsingEntity<Dictionary<string, object>>("MovieGenre",
                     m => m.HasOne<Genre>().WithMany().HasForeignKey("GenreId"),
                     g => g.HasOne<Movie>().WithMany().HasForeignKey("MovieId"));
-            }
+        }
 
-            private void ConfigureTrailer(EntityTypeBuilder<Trailer> builder)
+        private void ConfigureUser(EntityTypeBuilder<User> builder)
+        {
+            builder.ToTable("User");
+            builder.HasKey(u => u.Id);
+            builder.HasIndex(u => u.Email).IsUnique();
+            builder.Property(u => u.Email).HasMaxLength(256);
+            builder.Property(u => u.FirstName).HasMaxLength(128);
+            builder.Property(u => u.LastName).HasMaxLength(128);
+            builder.Property(u => u.HashedPassword).HasMaxLength(1024);
+            builder.Property(u => u.PhoneNumber).HasMaxLength(16);
+            builder.Property(u => u.Salt).HasMaxLength(1024);
+            builder.HasIndex(u => u.Salt).IsUnique();
+        }
+
+        private void ConfigureTrailer(EntityTypeBuilder<Trailer> builder)
         {
             builder.ToTable("Trailer");
             builder.HasKey(t => t.Id);
