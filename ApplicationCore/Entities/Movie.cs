@@ -33,5 +33,9 @@ namespace ApplicationCore.Entities
 
         // We need a list of trailers to get many trailers
         public ICollection<Trailer> Trailers { get; set; }
+        public ICollection<Genre> Genres { get; set; }
+        //public object Genres { get; set; }
+        public ICollection<MovieCast> MovieCasts { get; set; }
+        public ICollection<Review> Reviews { get; set; }
     }
 }
