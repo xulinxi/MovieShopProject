@@ -17,27 +17,32 @@ namespace Infrastructure.Data
         }
 
         public DbSet<Genre> Genres { get; set; }
-        public DbSet<MovieGenre> MovieGenres { get; set; }
-        public DbSet<MovieCast> MovieCasts { get; set; }
-        public DbSet<Cast> Casts { get; set; }
-        public DbSet<Crew> Crews { get; set; }
-        public DbSet<MovieCrew> MovieCrews { get; set; }
+        //public DbSet<MovieGenre> MovieGenres { get; set; }
+        //public DbSet<MovieCast> MovieCasts { get; set; }
+        //public DbSet<Cast> Casts { get; set; }
+        //public DbSet<Crew> Crews { get; set; }
+        //public DbSet<MovieCrew> MovieCrews { get; set; }
         public DbSet<Movie> Movies { get; set; }
-        public DbSet<Review> Reviews { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Favorite> Favorites { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<UserRole> UserRoles { get; set; }
-        public DbSet<Purchase> Purchases { get; set; }
+        //public DbSet<Review> Reviews { get; set; }
+        //public DbSet<User> Users { get; set; }
+        //public DbSet<Favorite> Favorites { get; set; }
+        //public DbSet<Role> Roles { get; set; }
+        //public DbSet<UserRole> UserRoles { get; set; }
+        //public DbSet<Purchase> Purchases { get; set; }
         public DbSet<Trailer> Trailers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Movie>(ConfigureMovie);
             modelBuilder.Entity<Trailer>(ConfigureTrailer);
-        }
 
-        private void ConfigureTrailer(EntityTypeBuilder<Trailer> builder)
+            modelBuilder.Entity<Movie>().HasMany(m => m.Genres).WithMany(g => g.Movies)
+                .UsingEntity<Dictionary<string, object>>("MovieGenre",
+                    m => m.HasOne<Genre>().WithMany().HasForeignKey("GenreId"),
+                    g => g.HasOne<Movie>().WithMany().HasForeignKey("MovieId"));
+            }
+
+            private void ConfigureTrailer(EntityTypeBuilder<Trailer> builder)
         {
             builder.ToTable("Trailer");
             builder.HasKey(t => t.Id);
