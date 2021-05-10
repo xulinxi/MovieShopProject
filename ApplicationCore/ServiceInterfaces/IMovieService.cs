@@ -25,5 +25,6 @@ namespace ApplicationCore.ServiceInterfaces
 
         Task<MovieDetailsResponseModel> CreateMovie(MovieCreateRequest movieCreateRequest);
         Task<MovieDetailsResponseModel> UpdateMovie(MovieCreateRequest movieCreateRequest);
+        object GetTopRevenueMovie();
     }
 }
