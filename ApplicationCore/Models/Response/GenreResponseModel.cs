@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Models.Response
 {
-    interface GenreResponseModel
+    public class GenreResponseModel
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

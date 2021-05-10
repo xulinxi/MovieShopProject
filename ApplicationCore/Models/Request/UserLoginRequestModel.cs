@@ -8,5 +8,7 @@ namespace ApplicationCore.Models.Request
 {
     interface UserLoginRequestModel
     {
+        public string Email { get; set; }
+        public string Password { get; set; }
     }
 }
