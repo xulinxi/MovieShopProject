@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Models.Request
 {
-    interface UserRegisterRequestModel
+   public class UserRegisterRequestModel
     {
         public string Email { get; set; }
         public string FirstName { get; set; }

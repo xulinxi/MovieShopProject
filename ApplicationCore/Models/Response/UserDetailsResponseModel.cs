@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Models.Response
 {
-   public class GenreResponseModel
+   public class UserDetailsResponseModel
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Email { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }
