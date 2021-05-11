@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
-    public class UserRepository : EfRepository<User>, IUserRepository
+   public class UserRepository: EfRepository<User>, IUserRepository
     {
         public UserRepository(MovieShopDbContext dbContext) : base(dbContext)
         {

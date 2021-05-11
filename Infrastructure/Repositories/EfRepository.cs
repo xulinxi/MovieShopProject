@@ -4,7 +4,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using ApplicationCore.Helpers;
 using ApplicationCore.RepositoryInterfaces;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -44,7 +43,7 @@ namespace Infrastructure.Repositories
 
         public virtual async Task<bool> GetExistsAsync(Expression<Func<T, bool>> filter = null)
         {
-            if (filter == null)
+            if (filter ==null)
             {
                 return false;
             }
@@ -78,16 +77,6 @@ namespace Infrastructure.Repositories
         {
             _dbContext.Set<T>().Remove(entity);
             await _dbContext.SaveChangesAsync();
-        }
-
-        public Task<IEnumerable<T>> ListAllWithIncludesAsync(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includes)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<PaginatedList<T>> GetPagedData(int pageIndex, int pageSize, Func<IQueryable<T>, IOrderedQueryable<T>> orderedQuery = null, Expression<Func<T, bool>> filter = null, params Expression<Func<T, object>>[] includes)
-        {
-            throw new NotImplementedException();
         }
     }
 }

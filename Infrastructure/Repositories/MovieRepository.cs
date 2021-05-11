@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ApplicationCore.Entities;
-using ApplicationCore.Helpers;
 using ApplicationCore.RepositoryInterfaces;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
@@ -15,24 +15,37 @@ namespace Infrastructure.Repositories
         public MovieRepository(MovieShopDbContext dbContext) : base(dbContext)
         {
         }
-        public Task<IEnumerable<Movie>> GetHighestGrossingMovies()
+
+        public async Task<IEnumerable<Movie>> GetTop30HighestRevenueMovies()
         {
-            throw new NotImplementedException();
+            var movies = await _dbContext.Movies.OrderByDescending(m => m.Revenue).Take(30).ToListAsync();
+            return movies;
         }
 
-        public Task<IEnumerable<Review>> GetMovieReviews(int id)
+        public override async Task<Movie> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var movie = await _dbContext.Movies.Include(m => m.Genres).FirstOrDefaultAsync(m => m.Id == id);
+
+            // cast for that movie
+            // Average Rating
+            // Genres for that movie
+            // Show Buy Button when user is not Login in the website and show when user is login and not purchased
+            // Show Watch Movie button when user is login and already bought the movie
+            // Include
+            // ThenInclude
+
+            // var rating = _dbContext.reviews.where(r => r.MovieId == id).AverageAync(r => r.Rating);
+            // movie.Rating = rating;
+            return movie;
         }
 
-        public Task<PaginatedList<Movie>> GetMoviesByGenre(int genreId, int pageSize = 25, int page = 1)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Movie>> GetTopRatedMovies()
-        {
-            throw new NotImplementedException();
-        }
+        //First()
+        //FirstOrDefault()
+        //Single()
+        //SingleOrDefault()
+        //Where()
+        //GroupBy()
+        //ToList()
+        //Any()
     }
 }
