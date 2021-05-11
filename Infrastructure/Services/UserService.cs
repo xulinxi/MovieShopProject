@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using ApplicationCore.Entities;
-using ApplicationCore.Models;
+using ApplicationCore.Models.Request;
 using ApplicationCore.Models.Response;
 using ApplicationCore.RepositoryInterfaces;
 using ApplicationCore.ServiceInterfaces;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using ApplicationCore.Entities;
+using ApplicationCore.Exceptions;
 
 namespace Infrastructure.Services
 {
@@ -22,8 +24,7 @@ namespace Infrastructure.Services
             _userRepository = userRepository;
         }
 
-        
-        public async Task<UserRegisterResponseModel> CreateUser(UserRegisterRequestModel registerRequest)
+        public async Task<UserRegisterResponseModel> RegisterUser(UserRegisterRequestModel registerRequest)
         {
             // first check whether the user with same email exists in our database.
             var dbUser = await _userRepository.GetUserByEmail(registerRequest.Email);
@@ -31,7 +32,7 @@ namespace Infrastructure.Services
             // if user exists
             if (dbUser != null)
             {
-                throw new Exception("User Already exists, please try to login");
+                throw new ConflictException("User Already exists, please try to login");
             }
 
             // generate a unique salt
@@ -47,7 +48,8 @@ namespace Infrastructure.Services
                 LastName = registerRequest.LastName,
                 Email = registerRequest.Email,
                 Salt = salt,
-                HashedPassword = hashedPassword
+                HashedPassword = hashedPassword,
+                DateOfBirth = registerRequest.DateTime,
             };
 
             // call repository to save User info that included salt and hashed password
@@ -65,7 +67,7 @@ namespace Infrastructure.Services
             return createdUserResponse;
         }
 
-        public async Task<UserLoginResponseModel> ValidateUser(string email, string password)
+        public async Task<LoginResponseModel> ValidateUser(string email, string password)
         {
             // get the user info my email by using GetUserByEmail
 
@@ -84,10 +86,7 @@ namespace Infrastructure.Services
 
                 var loginResponseModel = new LoginResponseModel
                 {
-                    Id = dbUser.Id,
-                    Email = dbUser.Email,
-                    FirstName = dbUser.FirstName,
-                    LastName = dbUser.LastName
+                    Id = dbUser.Id, Email = dbUser.Email, FirstName = dbUser.FirstName, LastName = dbUser.LastName
                 };
                 return loginResponseModel;
             }
@@ -95,6 +94,21 @@ namespace Infrastructure.Services
             return null;
         }
 
+        public async Task<UserDetailsResponseModel> GetUserById(int id)
+        {
+            var user = await _userRepository.GetByIdAsync(id);
+            if (user == null)
+            {
+                throw new NotFoundException("user does not exist");
+            }
+
+            var userDetails = new UserDetailsResponseModel
+            {
+                Id = user.Id, Email = user.Email, FirstName = user.FirstName, LastName = user.LastName
+            };
+
+            return userDetails;
+        }
 
         private string CreateSalt()
         {
@@ -117,7 +131,5 @@ namespace Infrastructure.Services
                 numBytesRequested: 256 / 8));
             return hashed;
         }
-
-
     }
 }
