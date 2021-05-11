@@ -1,57 +1,78 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using ApplicationCore.Entities;
-using ApplicationCore.Models;
+using ApplicationCore.Models.Request;
 using ApplicationCore.ServiceInterfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 
 namespace MovieShop.MVC.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IConfiguration _config;
         private readonly IUserService _userService;
 
-        public AccountController( IUserService userService,
-            IConfiguration config)
+        public AccountController(IUserService userService)
         {
             _userService = userService;
-            _config = config;
-        }
-
-        public IActionResult Register()
-        {
-            return View();
         }
 
         [HttpGet]
-        public IActionResult EditProfile()
+        public async Task<IActionResult> Register()
         {
             return View();
         }
-
 
         [HttpPost]
-        public async Task<IActionResult> Register(UserRegisterRequestModel registerModel)
+        public async Task<IActionResult> Register(UserRegisterRequestModel userRegisterRequestModel)
         {
-            if (!ModelState.IsValid) return View();
-
-            var registeredUser = await _userService.CreateUser(registerModel);
-
-            return RedirectToAction("Login");
+            var newUser = await _userService.RegisterUser(userRegisterRequestModel);
+            return View();
         }
 
         [HttpGet]
-        public ActionResult Login()
+        public async Task<IActionResult> Login()
         {
-            if (User.Identity != null && User.Identity.IsAuthenticated) return LocalRedirect("~/");
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(UserLoginRequestModel userLoginRequestModel)
+        {
+            var user = await _userService.ValidateUser(userLoginRequestModel.Email, userLoginRequestModel.Password);
+
+            if (user == null)
+            {
+                // Invalid User Name/Password                
+                return View();
+            }
+
+            
+            // if user entered correct un/pw
+            // Cookie Based Authentication
+            // Claims, first name, last name, date of birth, id... 
+            // can be encrypted
+
+            var claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Surname, user.LastName),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.GivenName, user.FirstName)
+            };
+
+            // Identity
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            // create cookie
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity));
+
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> Logout()
@@ -60,36 +81,24 @@ namespace MovieShop.MVC.Controllers
             return RedirectToAction("Login");
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Login(LoginRequestModel loginRequest, string returnUrl = null)
+        [HttpGet]
+        public async Task<IActionResult> Profile()
         {
-            returnUrl ??= Url.Content("~/");
-            if (!ModelState.IsValid) return View();
+            return View();
+        }
 
-            var user = await _userService.ValidateUser(loginRequest.Email, loginRequest.Password);
+        [HttpGet]
+        public async Task<IActionResult> EditProfile()
+        {
+            // call the database and get the user information and fill that in textboxes so that user can edit and save info
+            return View();
+        }
 
-            if (user == null)
-            {
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                return View();
-            }
-
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, user.Email),
-                new Claim(ClaimTypes.GivenName, user.FirstName),
-                new Claim(ClaimTypes.Surname, user.LastName),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
-            };
-
-            if (user.Roles != null) claims.AddRange(user.Roles.Select(role => new Claim(ClaimTypes.Role, role.Name)));
-
-            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity));
-
-            return LocalRedirect(returnUrl);
+        [HttpPost]
+        public async Task<IActionResult> EditProfile(UserRequestModel model)
+        {
+            // call the user service and map the UserRequestModel data in to User entity and call the repository
+            return View();
         }
     }
 }

@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ApplicationCore.Models;
 using ApplicationCore.Models.Request;
-using Microsoft.AspNetCore.Mvc;
 
 namespace MovieShop.MVC.Controllers
 {
@@ -15,21 +14,18 @@ namespace MovieShop.MVC.Controllers
             return View();
         }
 
+
         [HttpPost]
         public IActionResult CreateMovie(MovieCreateRequestModel movieCreateRequestModel)
         {
-            // Note: modalbyname is case insensitive
-
-            // take the information from View and Save it to Database
             // save to database
             return View();
         }
 
         [HttpGet]
-        // Get an empty page before posting out movie details
         public IActionResult CreateMovie()
         {
-            // will show emoty page so admin can enter movie information
+            // will show empty page so that admin can enter movie information
             return View();
         }
 
