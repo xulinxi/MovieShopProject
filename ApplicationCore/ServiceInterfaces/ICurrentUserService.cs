@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ApplicationCore.Models;
 
 namespace ApplicationCore.ServiceInterfaces
 {
-    public interface ICastService
+   public interface ICurrentUserService
     {
-        Task<CastDetailsResponseModel> GetCastDetailsWithMovies(int id);
+        int? UserId { get; }
+        bool IsAuthenticated { get; }
+        string Email { get; }
+        string FullName { get; }
+
     }
 }

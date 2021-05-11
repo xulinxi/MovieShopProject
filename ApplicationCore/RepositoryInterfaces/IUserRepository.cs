@@ -7,8 +7,8 @@ using ApplicationCore.Entities;
 
 namespace ApplicationCore.RepositoryInterfaces
 {
-    public interface IUserRepository: IAsyncRepository<User>
-    {
-        Task<User> GetUserByEmail(string email);
-    }
+   public interface IUserRepository: IAsyncRepository<User>
+   {
+       Task<User> GetUserByEmail(string email);
+   }
 }
