@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
+import { Genre } from 'src/app/shared/models/genre';
 import { ApiService } from './api.service';
 
 @Injectable({
@@ -9,11 +10,10 @@ export class GenreService {
 
   constructor(private apiService: ApiService) { }
 
-  getAllGenres() {
+  getAllGenres(): Observable<Genre[]> {
 
-    // api url (backend)
-    // https://localhost:44385/api/
-    this.apiService.getList(environment.apiUrl);
-    // call getList() from apo service
+    // https://localhost:44385/api/Genres
+    return this.apiService.getList('genres');
+    // call getList() from Api Service
   }
 }
