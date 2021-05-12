@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {environment} from 'src/environments/environment'
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,12 @@ export class ApiService {
 
 
   // getting array of json objects
-  getList() {
+
+  getList(path: string) {
+
+    // var apiUrl = environment.apiUrl;
+
+    this.http.get(`${environment.apiUrl}${path}` )
 
   }
 
