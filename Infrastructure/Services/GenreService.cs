@@ -12,15 +12,15 @@ namespace Infrastructure.Services
 {
    public class GenreService: IGenreService
    {
-       private readonly IAsyncRepository<Genre> _genreRepository;
+       private readonly IGenreRepository _genreRepository;
 
-       public GenreService(IAsyncRepository<Genre> genreRepository)
+       public GenreService(IGenreRepository genreRepository)
        {
            _genreRepository = genreRepository;
        }
         public async Task<IEnumerable<GenreResponseModel>> GetAllGenres()
         {
-            var genres = await _genreRepository.ListAllAsync();
+            var genres = await _genreRepository.GetAllGenres();
 
             var genresList = new List<GenreResponseModel>();
             foreach (var genre in genres)

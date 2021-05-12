@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using ApplicationCore.Entities;
 using ApplicationCore.Models;
+using ApplicationCore.Models.Request;
 using ApplicationCore.ServiceInterfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -42,7 +43,7 @@ namespace MovieShop.MVC.Controllers
         {
             if (!ModelState.IsValid) return View();
 
-            var registeredUser = await _userService.CreateUser(registerModel);
+            var registeredUser = await _userService.RegisterUser(registerModel);
 
             return RedirectToAction("Login");
         }
@@ -61,7 +62,7 @@ namespace MovieShop.MVC.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Login(LoginRequestModel loginRequest, string returnUrl = null)
+        public async Task<ActionResult> Login(UserLoginRequestModel loginRequest, string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
             if (!ModelState.IsValid) return View();
@@ -82,7 +83,7 @@ namespace MovieShop.MVC.Controllers
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
 
-            if (user.Roles != null) claims.AddRange(user.Roles.Select(role => new Claim(ClaimTypes.Role, role.Name)));
+            //if (user.Roles != null) claims.AddRange(user.Roles.Select(role => new Claim(ClaimTypes.Role, role.Name)));
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 

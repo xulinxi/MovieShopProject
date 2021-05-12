@@ -14,11 +14,12 @@ using System.Threading.Tasks;
 using ApplicationCore.Entities;
 using ApplicationCore.RepositoryInterfaces;
 using ApplicationCore.ServiceInterfaces;
-using Infrastructure.Data;
-using Infrastructure.Repositories;
-using Infrastructure.Services;
+
 using Microsoft.EntityFrameworkCore;
 using MovieShop.API.Middlewares;
+using Infrastructure.Services;
+using Infrastructure.Repositories;
+using Infrastructure.Data;
 
 namespace MovieShop.API
 {
@@ -42,6 +43,7 @@ namespace MovieShop.API
             services.AddScoped<IMovieRepository, MovieRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IGenreRepository, GenreRepository>();
 
             services.AddSwaggerGen(c =>
             {
@@ -61,6 +63,12 @@ namespace MovieShop.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MovieShop.API v1"));
             }
+
+            app.UseCors(builder =>
+            {
+                builder.WithOrigins(Configuration.GetValue<string>("clientSPAUrl")).AllowAnyHeader()
+                    .AllowAnyMethod();
+            });
 
             app.UseHttpsRedirection();
 

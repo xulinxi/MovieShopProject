@@ -18,7 +18,7 @@ namespace ApplicationCore.Entities
         //public string Character { get; set; }
         public Movie Movie { get; set; }
         public User Customer { get; set; }
-        public object CastId { get; set; }
+        public int CastId { get; set; }
         //public Cast Cast { get; set; }
     }
 }

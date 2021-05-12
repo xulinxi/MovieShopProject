@@ -21,6 +21,7 @@ export class GenresComponent implements OnInit {
         g => {
           this.genres = g;
           console.log(this.genres);
+          console.table(this.genres);
         }
       )
 
