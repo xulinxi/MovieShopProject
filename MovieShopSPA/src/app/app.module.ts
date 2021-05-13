@@ -19,6 +19,7 @@ import { FavoriteButtonComponent } from './shared/components/favorite-button/fav
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 import { PurchasesComponent } from './user/purchases/purchases.component';
 import { FavoritesComponent } from './user/favorites/favorites.component';
+import { MovieDetailsComponent } from './movies/movie-details/movie-details.component';
 // import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
@@ -37,7 +38,8 @@ import { FavoritesComponent } from './user/favorites/favorites.component';
     FavoriteButtonComponent,
     NotFoundComponent,
     PurchasesComponent,
-    FavoritesComponent
+    FavoritesComponent,
+    MovieDetailsComponent
   ],
   imports: [
     BrowserModule,

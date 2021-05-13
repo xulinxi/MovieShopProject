@@ -6,6 +6,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { HomeComponent } from './home/home.component';
 import { MovieCardListComponent } from './movies/movie-card-list/movie-card-list.component';
+import { MovieDetailsComponent } from './movies/movie-details/movie-details.component';
 
 // specify all the routes belonging to Angular appllication
 const routes: Routes = 
@@ -14,6 +15,7 @@ const routes: Routes =
 { path: "", component: HomeComponent }, // reroutes to component view when the link is clicked
 { path: "login", component: LoginComponent },
 { path: "register", component: RegisterComponent },
+{ path: "movie/:id", component: MovieDetailsComponent },
 { path: "genres/:id", component: MovieCardListComponent },
 { path: "admin/createmovie", component: CreateMovieComponent },
 { path: "admin/createcase", component: CreateCastComponent }
