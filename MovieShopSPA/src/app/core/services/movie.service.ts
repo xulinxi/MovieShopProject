@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { MovieCard } from 'src/app/shared/models/movieCard';
 import { ApiService } from './api.service';
 
 @Injectable({
@@ -15,5 +17,9 @@ export class MovieService {
     this.apiService.getOne(`${'movies/'}`, id);
  }
 
+ getTopRevenueMovies(): Observable<MovieCard[]> {
 
+  return this.apiService.getList('movies/toprevenue')
+
+}
 }
