@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Login } from 'src/app/shared/models/login';
 
 @Component({
   selector: 'app-login',
@@ -20,9 +21,12 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  LoginComponent() {
+  login() {
     console.log(` buttun was clicked`);
   }
+
+  // simply observing two way binding, just for testing, remove it later
+  get twoWayBindingInfo() { return JSON.stringify(this.userLogin)}
   
 }
 
