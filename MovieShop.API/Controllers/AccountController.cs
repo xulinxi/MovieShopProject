@@ -96,7 +96,7 @@ namespace MovieShop.API.Controllers
 
 
         [HttpPost]
-        [Route("")]
+        [Route("register")]
         public async Task<IActionResult> Register(UserRegisterRequestModel model)
         {
             var user = await _userService.RegisterUser(model);
