@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
+  // two way binding
+  // one way binding
+  
   constructor() { }
 
   ngOnInit(): void {
