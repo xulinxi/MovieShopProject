@@ -3,6 +3,9 @@ import { Observable } from 'rxjs';
 import { MovieCard } from 'src/app/shared/models/movieCard';
 import { ApiService } from './api.service';
 
+// Added imports
+
+
 @Injectable({
   providedIn: 'root'
 })
