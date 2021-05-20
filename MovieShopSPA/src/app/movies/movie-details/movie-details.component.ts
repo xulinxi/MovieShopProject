@@ -16,7 +16,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class MovieDetailsComponent implements OnInit {
 
   movie: MovieCard | undefined;
-  id: number | undefined;
+  id!: number;
   isAuthenticated = false;
   currentMoviePurchased = false;
   currentMovieFavorited = false;
@@ -25,28 +25,25 @@ export class MovieDetailsComponent implements OnInit {
     private router: Router, private modalService: NgbModal) { }
   
     ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    
+
+      this.route.paramMap.subscribe(
+        params => {
+           this.id = +params.get('id')!;
+          // this.getMovieDetails();
+        }
+      );
+
+
   }
 
-  // ngOnInit() {
-  //   this.authService.isAuthenticated.subscribe(isAuthenticated => {
-  //     this.isAuthenticated = isAuthenticated;
-  //   });
-    // console.log('Movie is purchased', this.currentMoviePurchased);
-
-    this.route.paramMap.subscribe(
-      params => {
-        this.id = +params.get('id');
-        this.getMovieDetails();
-      }
-    );
-  }
-
-  // from movie service
+ //   from movie service
   getMovieDetails() {
     this.movieService.getMovieDetails(this.id)
       .subscribe(m => {
         this.movie = m;
+        console.log('inside the movie details');
+        console.log(this.movie);
         // if (this.isAuthenticated) {
         //   this.isCurrentMoviePurchased();
         //   this.isMovieFavorited();
@@ -54,6 +51,10 @@ export class MovieDetailsComponent implements OnInit {
 
       });
   }
+  
+  }
+
+
 
 
 
